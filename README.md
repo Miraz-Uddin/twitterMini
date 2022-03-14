@@ -1,7 +1,7 @@
 ## twitterMini
 This is the 'Tweet Tweet' project
 
-![HTML View](./skeleton.png)
+![HTML View](./skeleton.jpg)
 ### Features
  - [ ] CRUD (Create)
  - [ ] CRUD (Read)
