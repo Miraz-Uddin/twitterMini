@@ -7,6 +7,6 @@ This is the 'Tweet Tweet' project
  - [ ] CRUD (Read)
  - [ ] CRUD (Update)
  - [ ] CRUD (Delete)
- - [ ] Character length valdiation
+ - [x] Character length valdiation
  - [ ] Real time display
  - [ ] Wild Card Search

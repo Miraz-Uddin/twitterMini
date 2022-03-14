@@ -47,3 +47,7 @@ a {
 #tweet_input {
 	border: 1px solid #2c2c2c;
 }
+
+.form-control:focus {
+	box-shadow: none !important;
+}
