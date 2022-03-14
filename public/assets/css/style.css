@@ -1,5 +1,49 @@
+ul li {
+	list-style: none;
+}
 
+p {
+	margin-bottom: 0;
+}
 
-hr {
-	background-color: darkorchid;
+a {
+	text-decoration: none;
+}
+
+.bg {
+	background: url(../img/background.jpg);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 60rem;
+	position: relative;
+}
+
+.tweet_input_form {
+	position: relative;
+}
+
+.words {
+	position: absolute;
+	content: '';
+	top: -25px;
+	right: 5px;
+}
+
+.time {
+	font-size: 11px;
+	color: darkblue;
+}
+
+.item {
+	border-bottom: 1px solid rgb(245, 225, 245);
+	padding: 1rem 0 .6rem 0;
+}
+
+.text {
+	color: #00ccfe
+}
+
+#tweet_input {
+	border: 1px solid #2c2c2c;
 }
