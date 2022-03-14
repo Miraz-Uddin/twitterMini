@@ -15,7 +15,7 @@ a {
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
-	height: 60rem;
+	min-height: 60rem;
 	position: relative;
 }
 
@@ -40,14 +40,50 @@ a {
 	padding: 1rem 0 .6rem 0;
 }
 
-.text {
-	color: #00ccfe
-}
-
 #tweet_input {
-	border: 1px solid #2c2c2c;
+	border: 2px solid #2c2c2c;
+	height: 16rem;
+	resize: none;
 }
 
 .form-control:focus {
 	box-shadow: none !important;
+}
+
+.text {
+	color: #00ccfe;
+	height: 20px;
+	line-height: 18px;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 1;
+	overflow: hidden;
+	margin-bottom: 4px;
+	font-size: 14px;
+}
+
+.text_parent {
+	width: 28rem;
+}
+
+
+@media (max-width: 1399.98px) {
+    .text {
+		height: 20px;
+		line-height: 24px;
+		-webkit-line-clamp: 1;
+	}
+	.text_parent {
+		width: 15rem;
+	}
+}
+@media (max-width: 1199.98px) {
+    .navigation_steps{
+        margin: 2rem 3rem;
+    }
+}
+@media (max-width: 991.98px) {
+    .navigation_steps{
+        margin: 2rem 8rem;
+    }
 }
