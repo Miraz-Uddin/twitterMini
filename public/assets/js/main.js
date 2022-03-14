@@ -9,8 +9,8 @@
         {id: 1647216243274, post:"Today is Sunshine, and we'll watch a good movie", createdAt:1647216243274, updatedAt:null},
         {id: 1647216243374, post:"Today is not a Good Day To Watch movie", createdAt:1647216243374, updatedAt:1647216243394},
         {id: 1647216243474, post:"Let's Have Pizzatoday at afternoon", createdAt:1647216243474, updatedAt:null},
-        {id: 1647216243574, post:"Bangladesh has won the ICC Champions Trophy Again", createdAt:1647216243574, updatedAt:1647216243677},
-        {id: 1647216243674, post:"Such Cool Rainy Day today. Biriyani is the perfect dish for today", createdAt:1647216243674, updatedAt:null},
+        {id: 1647216243574, post:"Bangladesh has won the ICC Champions Trophy Again", createdAt:1647216243574, updatedAt:null},
+        {id: 1647216243674, post:"Such Cool Rainy Day today. Biriyani is the perfect dish for today", createdAt:1647216243674, updatedAt:1647216243677},
     ];
     showAllData(tweetList);
 
@@ -49,26 +49,28 @@
         let count = 0;
         let tweets = '';
         for(let item of arr){
-            let time = `was created at ${item['createdAt']}`;
+            let time = `was created at ${milisecondsToDateConvert(item['createdAt'])}`;
             if(item['updatedAt'])
-                time = `was updated at ${item['updatedAt']}`;
-            tweets+=`
-            <li class="item" id="item-${item['id']}">
-                <div class="d-flex justify-content-between">
-                    <div class="d-flex justify-content-between">
-                    <p class="d-flex" style="align-items: center; padding: 0 1rem 0 0;">${++count}</p>
-                    <div class="text_parent">
-                        <a href="#"><p class="text">${item['post']}</p></a>
-                        <p class="time">This tweet ${time}</p>
-                    </div>
-                    </div>
-                    <p>
-                    <button type="button" class="btn btn-sm btn-outline-danger deleteBtn">Delete</button>
-                    </p>
-                </div>
-            </li>`;
+                time = `was updated at ${milisecondsToDateConvert(item['updatedAt'])}`;
+            tweets+=`<li class="item" id="item-${item['id']}"><div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between"><p class="d-flex" style="align-items: center; padding: 0 1rem 0 0;">${++count}</p>
+            <div class="text_parent"><button type="button" data-bs-toggle="modal" data-bs-target="#editTweetModal" 
+            style="background:none;padding:0;border:none;color:#00741f">${item['post']}</button>
+            <p class="time">This tweet ${time}</p></div></div><p><button type="button" class="btn deleteBtn">
+            <i class="fa fa-times" aria-hidden="true"></i></button></p></div></li>`;
         }
-        TWEET_LIST_PARENT.insertAdjacentHTML('afterbegin',tweets)
+        TWEET_LIST_PARENT.insertAdjacentHTML('afterbegin',tweets);
+    }
+
+    function milisecondsToDateConvert(num){
+        const main = new Date(num);
+        const date = main.getDate()<10?'0'+main.getDate():main.getDate() 
+        const month = main.getMonth()<10?'0'+main.getMonth():main.getMonth(); 
+        const year = main.getFullYear()<10?'0'+main.getFullYear():main.getFullYear(); 
+        const hour = main.getHours()<10?'0'+main.getHours():main.getHours();
+        const minute = main.getMinutes()<10?'0'+main.getMinutes():main.getMinutes();
+        const second = main.getSeconds()<10?'0'+main.getSeconds():main.getSeconds();
+        return `${year}-${month}-${date} ${hour}:${minute}:${second}`;
     }
 
 

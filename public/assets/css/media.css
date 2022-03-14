@@ -1,5 +1,28 @@
+@media (max-width: 1399.98px) {
+    .text {
+		height: 20px;
+		line-height: 24px;
+		-webkit-line-clamp: 1;
+	}
+	.text_parent {
+		width: 15rem;
+	}
+}
+@media (max-width: 1199.98px) {
+    .navigation_steps{
+        margin: 2rem 3rem;
+    }
+}
+
 @media (min-width: 992px){
     .navbar-expand-lg .navbar-collapse {
         justify-content: end;
     }
+}
+
+@media (max-width: 991.98px) {
+    .navigation_steps{
+        margin: 2rem 8rem;
+    }
+
 }
