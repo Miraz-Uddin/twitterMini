@@ -3,6 +3,7 @@
 
     const TWEET_INPUT = document.querySelector('#tweet_input');
     const TWEET_SUBMIT_BTN = document.querySelector('#tweet_submit_btn');
+    const TWEET_LIST_PARENT = document.querySelector('#tweet_list_parent');
     let tweetList = readDataFromStorage();
     tweetList = [
         {id: 1647216243274, post:"Today is Sunshine, and we'll watch a good movie", createdAt:1647216243274, updatedAt:null},
@@ -45,9 +46,29 @@
     }
 
     function showAllData(arr){
+        let count = 0;
+        let tweets = '';
         for(let item of arr){
-            console.log(item)
+            let time = `was created at ${item['createdAt']}`;
+            if(item['updatedAt'])
+                time = `was updated at ${item['updatedAt']}`;
+            tweets+=`
+            <li class="item" id="item-${item['id']}">
+                <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-between">
+                    <p class="d-flex" style="align-items: center; padding: 0 1rem 0 0;">${++count}</p>
+                    <div class="text_parent">
+                        <a href="#"><p class="text">${item['post']}</p></a>
+                        <p class="time">This tweet ${time}</p>
+                    </div>
+                    </div>
+                    <p>
+                    <button type="button" class="btn btn-sm btn-outline-danger deleteBtn">Delete</button>
+                    </p>
+                </div>
+            </li>`;
         }
+        TWEET_LIST_PARENT.insertAdjacentHTML('afterbegin',tweets)
     }
 
 
