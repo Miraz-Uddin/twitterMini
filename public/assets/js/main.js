@@ -34,6 +34,8 @@
         e.preventDefault();
         if(e.target.classList.contains('deleteButton'))
             deleteTweetFromStorage(e.target.parentElement.id.split('-')[1]);
+        if(e.target.classList.contains('editButton'))
+            setClickedTweetInModal(e.target.parentElement.parentElement.parentElement.parentElement.id.split('-')[1]);
     });
 
     function tweetMaxCount(inputLength, count){
@@ -66,6 +68,15 @@
         localStorage.setItem('tweetList',JSON.stringify(arr));
     }
 
+    function setClickedTweetInModal(id){
+        const objValue = getTweetFromStorage(id);
+        const i = objValue.index;
+        let tweets = objValue.arr;
+        const newTweet = document.querySelector('#newTweet');
+        newTweet.textContent = '';
+        newTweet.textContent = tweets[i].post;
+    }
+
     function deleteTweetFromStorage(id){
         const objValue = getTweetFromStorage(id);
         const i = objValue.index;
@@ -94,7 +105,7 @@
             tweets+=`<li class="item" id="item-${item['id']}"><div class="d-flex justify-content-between">
             <div class="d-flex justify-content-between"><p class="d-flex" style="align-items: center; padding: 0 1rem 0 0;">${++count}</p>
             <div class="text_parent"><button type="button" data-bs-toggle="modal" data-bs-target="#editTweetModal" 
-            style="background:none;padding:0;border:none;color:#00741f">${item['post']}</button>
+            style="background:none;padding:0;border:none;color:#00741f" class="editButton">${item['post']}</button>
             <p class="time">This tweet ${time}</p></div></div><p><button type="button" class="btn deleteBtn">
             <i class="fa fa-times deleteButton" aria-hidden="true"></i></button></p></div></li>`;
         }
