@@ -27,6 +27,7 @@
         const TWEET_INPUT= document.querySelector('#tweet_input');
         storeTweetToStorage(TWEET_INPUT.value);
         showAllData();
+        clearInputField();
     });
 
     function tweetMaxCount(inputLength, count){
@@ -94,5 +95,8 @@
         return Date.parse(new Date(arr[0], arr[1], arr[2], arr[3], arr[4], arr[5]))
     }
 
+    function clearInputField(){
+        TWEET_INPUT.value = '';
+    }
 
 })()
