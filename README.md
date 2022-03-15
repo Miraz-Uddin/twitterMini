@@ -3,10 +3,10 @@ This is the 'Tweet Tweet' project
 
 ![HTML View](./skeleton.jpg)
 ### Features
- - [ ] CRUD (Create)
- - [ ] CRUD (Read)
+ - [x] CRUD (Create)
+ - [x] CRUD (Read)
  - [ ] CRUD (Update)
  - [ ] CRUD (Delete)
  - [x] Character length valdiation
- - [ ] Real time display
+ - [x] Real time display
  - [ ] Wild Card Search
