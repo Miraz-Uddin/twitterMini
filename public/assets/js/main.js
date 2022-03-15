@@ -4,15 +4,7 @@
     const TWEET_INPUT = document.querySelector('#tweet_input');
     const TWEET_SUBMIT_BTN = document.querySelector('#tweet_submit_btn');
     const TWEET_LIST_PARENT = document.querySelector('#tweet_list_parent');
-    let tweetList = readDataFromStorage();
-    tweetList = [
-        {id: 1647216243000, post:"Today is Sunshine, and we'll watch a good movie", createdAt:1647216243000, updatedAt:null},
-        {id: 1647286243000, post:"Today is not a Good Day To Watch movie", createdAt:1647286243000, updatedAt:1647296243000},
-        {id: 1647096243000, post:"Let's Have Pizzatoday at afternoon", createdAt:1647096243000, updatedAt:null},
-        {id: 1645096243000, post:"Bangladesh has won the ICC Champions Trophy Again", createdAt:1645096243000, updatedAt:null},
-        {id: 1635096243000, post:"Such Cool Rainy Day today. Biriyani is the perfect dish for today", createdAt:1635096243000, updatedAt:1646096243000},
-    ];
-    showAllData(tweetList);
+    showAllData();
 
     TWEET_INPUT.addEventListener('input',function(e){
         e.preventDefault();
@@ -30,13 +22,20 @@
         }
     });
 
+    TWEET_SUBMIT_BTN.addEventListener('click',function(e){
+        e.preventDefault();
+        const TWEET_INPUT= document.querySelector('#tweet_input');
+        storeTweetToStorage(TWEET_INPUT.value);
+        showAllData();
+    });
+
     function tweetMaxCount(inputLength, count){
         if(inputLength>parseInt(count))
             return false;
         return true;
     }
 
-    function readDataFromStorage(){
+    function readTweetsFromStorage(){
         if(localStorage.getItem('tweetList')){
             let arr = JSON.parse(localStorage.getItem('tweetList'));
             return arr;
@@ -45,7 +44,23 @@
         }
     }
 
-    function showAllData(arr){
+    function storeTweetToStorage(postTitle){
+        const currentTime = Date.now();
+        const tweetPost = {
+            id: currentTime, 
+            post:postTitle, 
+            createdAt:currentTime, 
+            updatedAt:null
+        };
+        let arr = [];
+        if(localStorage.getItem('tweetList'))
+            arr = JSON.parse(localStorage.getItem('tweetList'));
+        arr.push(tweetPost);
+        localStorage.setItem('tweetList',JSON.stringify(arr));
+    }
+
+    function showAllData(){
+        let arr = readTweetsFromStorage();
         let count = 0;
         let tweets = '';
         for(let item of arr){
@@ -59,6 +74,7 @@
             <p class="time">This tweet ${time}</p></div></div><p><button type="button" class="btn deleteBtn">
             <i class="fa fa-times" aria-hidden="true"></i></button></p></div></li>`;
         }
+        TWEET_LIST_PARENT.innerHTML = '';
         TWEET_LIST_PARENT.insertAdjacentHTML('afterbegin',tweets);
     }
 
