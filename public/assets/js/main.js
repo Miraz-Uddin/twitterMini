@@ -30,6 +30,12 @@
         clearInputField();
     });
 
+    TWEET_LIST_PARENT.addEventListener('click',function(e){
+        e.preventDefault();
+        if(e.target.classList.contains('deleteButton'))
+            deleteTweetFromStorage(e.target.parentElement.id.split('-')[1]);
+    });
+
     function tweetMaxCount(inputLength, count){
         if(inputLength>parseInt(count))
             return false;
@@ -60,6 +66,23 @@
         localStorage.setItem('tweetList',JSON.stringify(arr));
     }
 
+    function deleteTweetFromStorage(id){
+        const objValue = getTweetFromStorage(id);
+        const i = objValue.index;
+        let tweets = objValue.arr;
+        tweets.splice(i,1);
+        if(localStorage.getItem('tweetList'))
+            localStorage.removeItem('tweetList');
+        localStorage.setItem('tweetList',JSON.stringify(tweets))
+        showAllData()
+    }
+
+    function getTweetFromStorage(idToFind){
+        let arr = readTweetsFromStorage();
+        let index = arr.findIndex(a=>a['id']==idToFind);
+        return { index, arr };
+    }
+
     function showAllData(){
         let arr = readTweetsFromStorage();
         let count = 0;
@@ -73,7 +96,7 @@
             <div class="text_parent"><button type="button" data-bs-toggle="modal" data-bs-target="#editTweetModal" 
             style="background:none;padding:0;border:none;color:#00741f">${item['post']}</button>
             <p class="time">This tweet ${time}</p></div></div><p><button type="button" class="btn deleteBtn">
-            <i class="fa fa-times" aria-hidden="true"></i></button></p></div></li>`;
+            <i class="fa fa-times deleteButton" aria-hidden="true"></i></button></p></div></li>`;
         }
         TWEET_LIST_PARENT.innerHTML = '';
         TWEET_LIST_PARENT.insertAdjacentHTML('afterbegin',tweets);
