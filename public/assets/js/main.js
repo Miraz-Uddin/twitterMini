@@ -6,11 +6,11 @@
     const TWEET_LIST_PARENT = document.querySelector('#tweet_list_parent');
     let tweetList = readDataFromStorage();
     tweetList = [
-        {id: 1647216243274, post:"Today is Sunshine, and we'll watch a good movie", createdAt:1647216243274, updatedAt:null},
-        {id: 1647216243374, post:"Today is not a Good Day To Watch movie", createdAt:1647216243374, updatedAt:1647216243394},
-        {id: 1647216243474, post:"Let's Have Pizzatoday at afternoon", createdAt:1647216243474, updatedAt:null},
-        {id: 1647216243574, post:"Bangladesh has won the ICC Champions Trophy Again", createdAt:1647216243574, updatedAt:null},
-        {id: 1647216243674, post:"Such Cool Rainy Day today. Biriyani is the perfect dish for today", createdAt:1647216243674, updatedAt:1647216243677},
+        {id: 1647216243000, post:"Today is Sunshine, and we'll watch a good movie", createdAt:1647216243000, updatedAt:null},
+        {id: 1647286243000, post:"Today is not a Good Day To Watch movie", createdAt:1647286243000, updatedAt:1647296243000},
+        {id: 1647096243000, post:"Let's Have Pizzatoday at afternoon", createdAt:1647096243000, updatedAt:null},
+        {id: 1645096243000, post:"Bangladesh has won the ICC Champions Trophy Again", createdAt:1645096243000, updatedAt:null},
+        {id: 1635096243000, post:"Such Cool Rainy Day today. Biriyani is the perfect dish for today", createdAt:1635096243000, updatedAt:1646096243000},
     ];
     showAllData(tweetList);
 
@@ -73,6 +73,10 @@
         return `${year}-${month}-${date} ${hour}:${minute}:${second}`;
     }
 
+    function dateToMilisecondsConvert(str){
+        let arr =  str.split(/[\s]/g).join(',').split(/[,:-]/g);
+        return Date.parse(new Date(arr[0], arr[1], arr[2], arr[3], arr[4], arr[5]))
+    }
 
 
 })()
