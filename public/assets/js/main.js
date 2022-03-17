@@ -7,8 +7,11 @@
   const TWEET_POSTED_TIME = document.querySelector("#tweet_posted_time");
   const NEW_TWEET_SUBMIT_BTN = document.querySelector("#new_tweet_submit_btn");
   const UPDATE_BUTTON = document.querySelector("#updateButton");
-  const editTweetModal = new bootstrap.Modal(document.getElementById('editTweetModal'), {keyboard: false});
-  
+  const editTweetModal = new bootstrap.Modal(
+    document.getElementById("editTweetModal"),
+    { keyboard: false }
+  );
+
   showAllData();
 
   TWEET_INPUT.addEventListener("input", function (e) {
@@ -44,8 +47,8 @@
     showAllData();
     clearInputField();
   });
- 
-  UPDATE_BUTTON.addEventListener('click',function(e){
+
+  UPDATE_BUTTON.addEventListener("click", function (e) {
     e.preventDefault();
     const EDITABLE_ID = document.querySelector("#editable_tweet_id");
     updateTweetInStorage(EDITABLE_ID.value);
@@ -103,7 +106,7 @@
     characterCount.textContent = 0;
     characterCount.textContent = tweets[i].post.length;
     const EDITABLE_ID = document.querySelector("#editable_tweet_id");
-    EDITABLE_ID.value=tweets[i].id;
+    EDITABLE_ID.value = tweets[i].id;
     TWEET_POSTED_TIME.innerHTML = "";
     TWEET_POSTED_TIME.innerHTML = milisecondsToHumanReadableDateConvert(
       tweets[i].createdAt
@@ -140,23 +143,33 @@
     let arr = readTweetsFromStorage();
     let count = 0;
     let tweets = "";
-    for (let i = arr.length - 1; i >= 0; i--) {
-      let time = `was created on ${milisecondsToHumanReadableDateConvert(
-        arr[i]["createdAt"]
-      )}`;
-      if (arr[i]["updatedAt"])
-        time = `was updated on ${milisecondsToHumanReadableDateConvert(
-          arr[i]["updatedAt"]
+    if(arr.length == 0){
+      tweets = `
+      <li class="p-3">
+          <div class="d-flex justify-content-center">
+            <p style="color: #1DA1F2; font-size:1.8rem">No Tweets Found</p>
+          </div>
+      </li>
+      `;
+    }else{
+      for (let i = arr.length - 1; i >= 0; i--) {
+        let time = `was created on ${milisecondsToHumanReadableDateConvert(
+          arr[i]["createdAt"]
         )}`;
-      tweets += `<li class="item" id="item-${
-        arr[i]["id"]
-      }"><div class="d-flex justify-content-between"><div class="d-flex justify-content-between">
-      <p class="d-flex" style="align-items: center; padding: 0 1rem 0 0;">${++count}</p><div class="text_parent">
-      <button type="button" data-bs-toggle="modal" data-bs-target="#editTweetModal" class="editButton" title="Click to Edit Tweet">${
-        arr[i]["post"]
-      }</button>
-      <p class="time">This tweet ${time}</p></div></div><p><button type="button" class="btn deleteBtn">
-      <i class="fa fa-times deleteButton" aria-hidden="true"></i></button></p></div></li>`;
+        if (arr[i]["updatedAt"])
+          time = `was updated on ${milisecondsToHumanReadableDateConvert(
+            arr[i]["updatedAt"]
+          )}`;
+        tweets += `<li class="item" id="item-${
+          arr[i]["id"]
+        }"><div class="d-flex justify-content-between"><div class="d-flex justify-content-between">
+        <p class="d-flex" style="align-items: center; padding: 0 1rem 0 0;">${++count}</p><div class="text_parent">
+        <button type="button" data-bs-toggle="modal" data-bs-target="#editTweetModal" class="editButton" title="Click to Edit Tweet">${
+          arr[i]["post"]
+        }</button>
+        <p class="time">This tweet ${time}</p></div></div><p><button type="button" class="btn deleteBtn">
+        <i class="fa fa-times deleteButton" aria-hidden="true"></i></button></p></div></li>`;
+      }
     }
     TWEET_LIST_PARENT.innerHTML = "";
     TWEET_LIST_PARENT.insertAdjacentHTML("afterbegin", tweets);
