@@ -46,6 +46,12 @@ a {
 	resize: none;
 }
 
+#newTweet {
+	border: 2px solid #2c2c2c;
+	height: 16rem;
+	resize: none;
+}
+
 .form-control:focus {
 	box-shadow: none !important;
 }

@@ -66,9 +66,10 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-body">
-            <p id="newTweet">Wow Buoy</p>
+            <textarea class="form-control" type="text" id="newTweet" value="Nice Day Today !!!"></textarea>
+            <p class="text-end"><span id="newCharacters">0</span> / <span id="newCharacters_max">250</span></p>
           </div>
-          <div class="modal-footer">
+          <div class="modal-footer" id="new_tweet_submit_btn">
             <button type="button" class="btn btn-sm btn-dark" data-bs-dismiss="modal">Close</button>
             <button type="button" class="btn btn-sm btn-primary updateButton">Save changes</button>
           </div>

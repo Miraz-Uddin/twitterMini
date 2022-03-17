@@ -4,6 +4,8 @@
     const TWEET_INPUT = document.querySelector('#tweet_input');
     const TWEET_SUBMIT_BTN = document.querySelector('#tweet_submit_btn');
     const TWEET_LIST_PARENT = document.querySelector('#tweet_list_parent');
+    const newTweet = document.querySelector('#newTweet');
+    const NEW_TWEET_SUBMIT_BTN = document.querySelector('#new_tweet_submit_btn');
     showAllData();
 
     TWEET_INPUT.addEventListener('input',function(e){
@@ -19,6 +21,22 @@
             this.style.border = '2px solid red';
             TWEET_SUBMIT_BTN.classList.remove('d-none');
             TWEET_SUBMIT_BTN.classList.add('d-none');
+        }
+    });
+
+    newTweet.addEventListener('input',function(e){
+        e.preventDefault();
+        const characterCount= document.querySelector('#newCharacters');
+        const characterMax= document.querySelector('#newCharacters_max');
+        characterCount.textContent = this.value.length; 
+
+        if(tweetMaxCount(this.value.length,characterMax.textContent)){
+            this.style.border = '2px solid green';
+            NEW_TWEET_SUBMIT_BTN.classList.remove('d-none');
+        }else{
+            this.style.border = '2px solid red';
+            NEW_TWEET_SUBMIT_BTN.classList.remove('d-none');
+            NEW_TWEET_SUBMIT_BTN.classList.add('d-none');
         }
     });
 
@@ -72,9 +90,24 @@
         const objValue = getTweetFromStorage(id);
         const i = objValue.index;
         let tweets = objValue.arr;
-        const newTweet = document.querySelector('#newTweet');
-        newTweet.textContent = '';
-        newTweet.textContent = tweets[i].post;
+        newTweet.value = '';
+        newTweet.value = tweets[i].post;
+    }
+
+    function updateTweetInStorage(){
+        const objValue = getTweetFromStorage(id);
+        const i = objValue.index;
+        const currentTime = Date.now();
+        let tweets = objValue.arr;
+        newTweet.value = '';
+        newTweet.value = tweets[i].post;
+        const updatedTweet = {
+            id: tweets[i].id, 
+            post:newTweet.value, 
+            createdAt:tweets[i].createdAt, 
+            updatedAt:currentTime
+        };
+        console.log(tweets,i);
     }
 
     function deleteTweetFromStorage(id){
