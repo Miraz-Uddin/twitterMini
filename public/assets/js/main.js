@@ -6,6 +6,9 @@
   const NEW_TWEET = document.querySelector("#newTweet");
   const TWEET_POSTED_TIME = document.querySelector("#tweet_posted_time");
   const NEW_TWEET_SUBMIT_BTN = document.querySelector("#new_tweet_submit_btn");
+  const UPDATE_BUTTON = document.querySelector("#updateButton");
+  const editTweetModal = new bootstrap.Modal(document.getElementById('editTweetModal'), {keyboard: false});
+  
   showAllData();
 
   TWEET_INPUT.addEventListener("input", function (e) {
@@ -41,6 +44,14 @@
     showAllData();
     clearInputField();
   });
+ 
+  UPDATE_BUTTON.addEventListener('click',function(e){
+    e.preventDefault();
+    const EDITABLE_ID = document.querySelector("#editable_tweet_id");
+    updateTweetInStorage(EDITABLE_ID.value);
+    showAllData();
+    editTweetModal.hide();
+  });
 
   TWEET_LIST_PARENT.addEventListener("click", function (e) {
     e.preventDefault();
@@ -69,11 +80,10 @@
   }
 
   function storeTweetToStorage(postTitle) {
-    const currentTime = Date.now();
     const tweetPost = {
-      id: currentTime,
+      id: Date.now(),
       post: postTitle,
-      createdAt: currentTime,
+      createdAt: Date.now(),
       updatedAt: null,
     };
     let arr = [];
@@ -92,26 +102,22 @@
     const characterCount = document.querySelector("#newCharacters");
     characterCount.textContent = 0;
     characterCount.textContent = tweets[i].post.length;
+    const EDITABLE_ID = document.querySelector("#editable_tweet_id");
+    EDITABLE_ID.value=tweets[i].id;
     TWEET_POSTED_TIME.innerHTML = "";
     TWEET_POSTED_TIME.innerHTML = milisecondsToHumanReadableDateConvert(
       tweets[i].createdAt
     );
   }
 
-  function updateTweetInStorage() {
-    const objValue = getTweetFromStorage(id);
+  function updateTweetInStorage(idToUpdate) {
+    const objValue = getTweetFromStorage(idToUpdate);
     const i = objValue.index;
-    const currentTime = Date.now();
     let tweets = objValue.arr;
-    NEW_TWEET.value = "";
-    NEW_TWEET.value = tweets[i].post;
-    const updatedTweet = {
-      id: tweets[i].id,
-      post: NEW_TWEET.value,
-      createdAt: tweets[i].createdAt,
-      updatedAt: currentTime,
-    };
-    console.log(tweets, i);
+    tweets[i].post = NEW_TWEET.value;
+    tweets[i].updatedAt = Date.now();
+    if (localStorage.getItem("tweetList")) localStorage.removeItem("tweetList");
+    localStorage.setItem("tweetList", JSON.stringify(tweets));
   }
 
   function deleteTweetFromStorage(id) {
@@ -156,28 +162,6 @@
     TWEET_LIST_PARENT.insertAdjacentHTML("afterbegin", tweets);
   }
 
-  function milisecondsToDateConvert(num) {
-    const main = new Date(num);
-    const date = main.getDate() < 10 ? "0" + main.getDate() : main.getDate();
-    const month =
-      main.getMonth() + 1 < 10
-        ? "0" + (main.getMonth() + 1)
-        : main.getMonth() + 1;
-    const year =
-      main.getFullYear() < 10 ? "0" + main.getFullYear() : main.getFullYear();
-    const hour = main.getHours() < 10 ? "0" + main.getHours() : main.getHours();
-    const minute =
-      main.getMinutes() < 10 ? "0" + main.getMinutes() : main.getMinutes();
-    const second =
-      main.getSeconds() < 10 ? "0" + main.getSeconds() : main.getSeconds();
-    return `${year}-${month}-${date} ${hour}:${minute}:${second}`;
-  }
-
-  function dateToMilisecondsConvert(str) {
-    let arr = str.split(/[\s]/g).join(",").split(/[,:-]/g);
-    return Date.parse(new Date(arr[0], arr[1], arr[2], arr[3], arr[4], arr[5]));
-  }
-
   function milisecondsToHumanReadableDateConvert(num) {
     const main = new Date(num);
     const date = toOrdinalSuffix(main.getDate());
@@ -187,11 +171,11 @@
     const hour = main
       .toLocaleString("en-US", { hour: "numeric", hour12: true })
       .split(" ");
-    const second =
-      main.getSeconds() < 10 ? "0" + main.getSeconds() : main.getSeconds();
+    const minute =
+      main.getMinutes() < 10 ? "0" + main.getMinutes() : main.getMinutes();
     return `${date} ${month}, ${year} at ${
       hour[0]
-    }:${second}${hour[1].toLowerCase()}`;
+    }:${minute}${hour[1].toLowerCase()}`;
   }
 
   function toOrdinalSuffix(num) {

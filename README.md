@@ -5,8 +5,8 @@ This is the 'Tweet Tweet' project
 ### Features
  - [x] CRUD (Create)
  - [x] CRUD (Read)
- - [ ] CRUD (Update)
- - [ ] CRUD (Delete)
+ - [x] CRUD (Update)
+ - [x] CRUD (Delete)
  - [x] Character length valdiation
  - [x] Real time display
  - [ ] Wild Card Search

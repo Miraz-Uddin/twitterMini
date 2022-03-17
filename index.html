@@ -72,6 +72,7 @@
             <h5>Tweet Tweet Edit</h5>
           </div>
           <div class="modal-body">
+            <input type="hidden" id="editable_tweet_id">
             <textarea class="form-control" type="text" id="newTweet" value="Nice Day Today !!!"></textarea>
             <div class="d-flex justify-content-between">
               <p>Posted: <span id="tweet_posted_time"></span></p>
@@ -80,7 +81,7 @@
           </div>
           <div class="modal-footer" id="new_tweet_submit_btn">
             <button type="button" class="btn btn-sm btn-dark" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-sm btn-primary updateButton">Save changes</button>
+            <button type="button" class="btn btn-sm btn-primary" id="updateButton">Save changes</button>
           </div>
         </div>
       </div>
