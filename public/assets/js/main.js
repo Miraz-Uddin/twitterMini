@@ -3,7 +3,7 @@
   const TWEET_INPUT = document.querySelector("#tweet_input");
   const TWEET_SUBMIT_BTN = document.querySelector("#tweet_submit_btn");
   const TWEET_LIST_PARENT = document.querySelector("#tweet_list_parent");
-  const newTweet = document.querySelector("#newTweet");
+  const NEW_TWEET = document.querySelector("#newTweet");
   const TWEET_POSTED_TIME = document.querySelector("#tweet_posted_time");
   const NEW_TWEET_SUBMIT_BTN = document.querySelector("#new_tweet_submit_btn");
   showAllData();
@@ -13,29 +13,23 @@
     const characterCount = document.querySelector("#characters");
     const characterMax = document.querySelector("#characters_max");
     characterCount.textContent = this.value.length;
-
-    if (tweetMaxCount(this.value.length, characterMax.textContent)) {
-      this.style.border = "2px solid green";
-      TWEET_SUBMIT_BTN.classList.remove("d-none");
-    } else {
+    this.style.border = "2px solid green";
+    TWEET_SUBMIT_BTN.classList.remove("d-none");
+    if (!tweetMaxCount(this.value.length, characterMax.textContent)) {
       this.style.border = "2px solid red";
-      TWEET_SUBMIT_BTN.classList.remove("d-none");
       TWEET_SUBMIT_BTN.classList.add("d-none");
     }
   });
 
-  newTweet.addEventListener("input", function (e) {
+  NEW_TWEET.addEventListener("input", function (e) {
     e.preventDefault();
     const characterCount = document.querySelector("#newCharacters");
     const characterMax = document.querySelector("#newCharacters_max");
     characterCount.textContent = this.value.length;
-
-    if (tweetMaxCount(this.value.length, characterMax.textContent)) {
-      this.style.border = "2px solid green";
-      NEW_TWEET_SUBMIT_BTN.classList.remove("d-none");
-    } else {
+    this.style.border = "2px solid green";
+    NEW_TWEET_SUBMIT_BTN.classList.remove("d-none");
+    if (!tweetMaxCount(this.value.length, characterMax.textContent)) {
       this.style.border = "2px solid red";
-      NEW_TWEET_SUBMIT_BTN.classList.remove("d-none");
       NEW_TWEET_SUBMIT_BTN.classList.add("d-none");
     }
   });
@@ -93,8 +87,8 @@
     const objValue = getTweetFromStorage(id);
     const i = objValue.index;
     let tweets = objValue.arr;
-    newTweet.value = "";
-    newTweet.value = tweets[i].post;
+    NEW_TWEET.value = "";
+    NEW_TWEET.value = tweets[i].post;
     const characterCount = document.querySelector("#newCharacters");
     characterCount.textContent = 0;
     characterCount.textContent = tweets[i].post.length;
@@ -109,11 +103,11 @@
     const i = objValue.index;
     const currentTime = Date.now();
     let tweets = objValue.arr;
-    newTweet.value = "";
-    newTweet.value = tweets[i].post;
+    NEW_TWEET.value = "";
+    NEW_TWEET.value = tweets[i].post;
     const updatedTweet = {
       id: tweets[i].id,
-      post: newTweet.value,
+      post: NEW_TWEET.value,
       createdAt: tweets[i].createdAt,
       updatedAt: currentTime,
     };
@@ -213,5 +207,7 @@
 
   function clearInputField() {
     TWEET_INPUT.value = "";
+    const characterCount = document.querySelector("#characters");
+    characterCount.textContent = 0;
   }
 })();
