@@ -33,7 +33,10 @@
       <div class="container">
         <div class="row pt-4">
           <div class="col-md-12 col-lg-6 mb-4">
-            <div class="card" style="padding: 5rem;">
+            <div class="card create_tweet_form">
+              <div class="card-header">
+                <h4>Tweet Tweet</h4>
+              </div>
               <div class="card-body">
                 <form class="tweet_input_form">
                   <textarea class="form-control" type="text" placeholder="Type tour Today's Tweet" id="tweet_input"></textarea>
@@ -65,9 +68,15 @@
     <div class="modal fade" id="editTweetModal" tabindex="-1" aria-labelledby="editTweetModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
+          <div class="modal-header">
+            <h5>Tweet Tweet Edit</h5>
+          </div>
           <div class="modal-body">
             <textarea class="form-control" type="text" id="newTweet" value="Nice Day Today !!!"></textarea>
-            <p class="text-end"><span id="newCharacters">0</span> / <span id="newCharacters_max">250</span></p>
+            <div class="d-flex justify-content-between">
+              <p>Posted: <span id="tweet_posted_time"></span></p>
+              <p class="text-end"><span id="newCharacters">0</span> / <span id="newCharacters_max">250</span></p>
+            </div>
           </div>
           <div class="modal-footer" id="new_tweet_submit_btn">
             <button type="button" class="btn btn-sm btn-dark" data-bs-dismiss="modal">Close</button>
@@ -81,8 +90,6 @@
 
     <!-- Bootstrap JS -->
     <script src="./public/assets/js/bootstrap.bundle.min.js"></script>
-
-    <script src="./public/assets/js/moment.min.js"></script>
 
     <!-- Custom JS -->
     <script src="./public/assets/js/main.js"></script>

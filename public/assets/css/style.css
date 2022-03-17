@@ -44,6 +44,7 @@ a {
 	border: 2px solid #2c2c2c;
 	height: 16rem;
 	resize: none;
+	width: 100%;
 }
 
 #newTweet {
@@ -56,8 +57,8 @@ a {
 	box-shadow: none !important;
 }
 
-.text {
-	color: #00ccfe;
+.editButton {
+	color:#00741f;
 	height: 20px;
 	line-height: 18px;
 	display: -webkit-box;
@@ -66,13 +67,34 @@ a {
 	overflow: hidden;
 	margin-bottom: 4px;
 	font-size: 14px;
+	width: 100%;
+	background: transparent;
+	border: none;
+	padding: 0;
+	text-align: start;
 }
 
 .text_parent {
 	width: 28rem;
 }
 
-.deleteBtn{
+.deleteBtn {
 	color: #A52A2A;
 	padding: 0;
 }
+
+.create_tweet_form{
+	padding: 1rem 5rem;
+}
+
+.create_tweet_form .card-header {
+	padding: .5rem 1rem;
+	margin-bottom: 30px;
+	background-color: transparent;
+	border-bottom: 1px solid rgba(0, 0, 0, .125);
+}
+
+.create_tweet_form .card-body {
+	padding: 0;
+}
+
