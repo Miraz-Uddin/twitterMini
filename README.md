@@ -9,4 +9,4 @@ This is the 'Tweet Tweet' project
  - [x] CRUD (Delete)
  - [x] Character length valdiation
  - [x] Real time display
- - [ ] Wild Card Search
+ - [x] Wild Card Search

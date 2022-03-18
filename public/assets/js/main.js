@@ -7,12 +7,15 @@
   const TWEET_POSTED_TIME = document.querySelector("#tweet_posted_time");
   const NEW_TWEET_SUBMIT_BTN = document.querySelector("#new_tweet_submit_btn");
   const UPDATE_BUTTON = document.querySelector("#updateButton");
+  const TWEET_SEARCH = document.querySelector("#tweet_search");
+  
   const editTweetModal = new bootstrap.Modal(
     document.getElementById("editTweetModal"),
     { keyboard: false }
   );
-
-  showAllData();
+   
+  let aListWithAllTweets = readTweetsFromStorage();
+  showAllData(aListWithAllTweets);
 
   TWEET_INPUT.addEventListener("input", function (e) {
     e.preventDefault();
@@ -44,7 +47,8 @@
     e.preventDefault();
     const TWEET_INPUT = document.querySelector("#tweet_input");
     storeTweetToStorage(TWEET_INPUT.value);
-    showAllData();
+    let arr = readTweetsFromStorage();
+    showAllData(arr);
     clearInputField();
   });
 
@@ -52,7 +56,8 @@
     e.preventDefault();
     const EDITABLE_ID = document.querySelector("#editable_tweet_id");
     updateTweetInStorage(EDITABLE_ID.value);
-    showAllData();
+    let tweetList = readTweetsFromStorage();
+    showAllData(tweetList);
     editTweetModal.hide();
   });
 
@@ -66,6 +71,13 @@
           "-"
         )[1]
       );
+  });
+
+  TWEET_SEARCH.addEventListener("input", function (e) {
+    e.preventDefault();
+    let tweetList = readTweetsFromStorage();
+    let filteredList = tweetList.filter(a=>a.post.toLowerCase().includes(this.value));
+    showAllData(filteredList);
   });
 
   function tweetMaxCount(inputLength, count) {
@@ -130,7 +142,7 @@
     tweets.splice(i, 1);
     if (localStorage.getItem("tweetList")) localStorage.removeItem("tweetList");
     localStorage.setItem("tweetList", JSON.stringify(tweets));
-    showAllData();
+    showAllData(tweets);
   }
 
   function getTweetFromStorage(idToFind) {
@@ -139,8 +151,7 @@
     return { index, arr };
   }
 
-  function showAllData() {
-    let arr = readTweetsFromStorage();
+  function showAllData(arr) {
     let count = 0;
     let tweets = "";
     if(arr.length == 0){
